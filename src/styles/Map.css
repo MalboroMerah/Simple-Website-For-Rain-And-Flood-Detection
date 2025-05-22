@@ -30,7 +30,7 @@
   color: #333;
 }
 
-.temperature-marker {
+.sensor-marker {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,9 +38,30 @@
   transition: transform 0.2s;
 }
 
-.temperature-marker:hover {
+.sensor-marker:hover {
   transform: scale(1.1);
   z-index: 1000;
+}
+
+.sensor-info {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sensor-info h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.sensor-info p {
+  margin: 5px 0;
+  font-size: 1rem;
+  color: #555;
 }
 
 .attribution {
