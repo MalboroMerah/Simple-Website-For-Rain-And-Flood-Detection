@@ -1,4 +1,110 @@
 .about-container {
-  padding: 20px;
-  font-size: 18px;
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.about-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.about-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.about-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.about-section h2 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.tech-list,
+.partners-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.tech-list li,
+.partners-list li {
+  margin-bottom: 0.5rem;
+}
+
+.tech-list i,
+.partners-list i {
+  margin-right: 8px;
+  color: #3498db;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.team-member {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.member-avatar i {
+  font-size: 3rem;
+  color: #bbb;
+  margin-bottom: 0.5rem;
+}
+
+.member-role {
+  font-style: italic;
+  color: #888;
+}
+
+.contact-section .contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.contact-item i {
+  color: #2980b9;
+}
+
+.social-media {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.social-icon i {
+  font-size: 1.5rem;
+  color: #555;
+  transition: color 0.3s;
+}
+
+.social-icon:hover i {
+  color: #2980b9;
+}
+
+.about-footer {
+  margin-top: 3rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #aaa;
 }

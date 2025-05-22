@@ -5,39 +5,37 @@ const About = () => {
   return (
     <div className="about-container">
       <div className="about-header">
-        <h1>Tentang SIGAB</h1>
-        <p className="about-subtitle">Sistem Informasi Geografis Aceh Berbasis IoT</p>
+        <h1>Tentang Aplikasi Kami</h1>
+        <p className="about-subtitle">Sistem Mitigasi Bencana Berbasis IoT dengan Sensor Water Level di Aceh Besar</p>
       </div>
       
       <div className="about-content">
         <div className="about-section">
           <h2>Visi & Misi</h2>
           <p>
-            <strong>Visi:</strong> Menjadi platform informasi cuaca terdepan untuk wilayah Aceh yang dapat diandalkan oleh masyarakat 
-            dalam menghadapi perubahan iklim dan cuaca ekstrem.
+            <strong>Visi:</strong> Menjadi sistem peringatan dini terpercaya yang membantu masyarakat Aceh Besar dalam mengantisipasi dan 
+            merespons potensi bencana banjir secara cepat dan efektif.
           </p>
           <p>
-            <strong>Misi:</strong> Menyediakan data cuaca yang akurat, tepat waktu, dan mudah diakses untuk membantu masyarakat Aceh 
-            dalam mengambil keputusan sehari-hari dan meningkatkan kesiapsiagaan terhadap bencana alam terkait cuaca.
+            <strong>Misi:</strong> Membangun jaringan sensor ketinggian air yang terintegrasi dan menyajikan data real-time, guna meningkatkan 
+            kesiapsiagaan masyarakat dan mendukung pengambilan keputusan oleh pihak berwenang dalam situasi darurat.
           </p>
         </div>
         
         <div className="about-section">
           <h2>Teknologi</h2>
           <p>
-            SIGAB dibangun dengan menggunakan teknologi IoT (Internet of Things) yang menghubungkan jaringan sensor cuaca 
-            yang tersebar di berbagai lokasi strategis di Aceh. Sensor-sensor ini mengumpulkan data secara real-time tentang:
+            Aplikasi ini mengintegrasikan teknologi IoT (Internet of Things) dengan sensor water level yang dipasang di titik-titik rawan banjir 
+            di kawasan Aceh Besar. Sistem ini mampu:
           </p>
           <ul className="tech-list">
-            <li><i className="fas fa-temperature-high"></i> Suhu udara</li>
-            <li><i className="fas fa-wind"></i> Kecepatan dan arah angin</li>
-            <li><i className="fas fa-cloud-rain"></i> Curah hujan</li>
-            <li><i className="fas fa-compress-alt"></i> Tekanan udara</li>
-            <li><i className="fas fa-tint"></i> Kelembaban</li>
+            <li><i className="fas fa-water"></i> Mendeteksi ketinggian permukaan air secara real-time</li>
+            <li><i className="fas fa-broadcast-tower"></i> Mengirim data melalui jaringan MQTT</li>
+            <li><i className="fas fa-chart-line"></i> Menyajikan visualisasi data dalam antarmuka berbasis web</li>
+            <li><i className="fas fa-bell"></i> Memberikan peringatan dini saat ambang batas tercapai</li>
           </ul>
           <p>
-            Data yang dikumpulkan dikirim melalui jaringan MQTT (Message Queuing Telemetry Transport) ke server pusat untuk diproses 
-            dan divisualisasikan dalam aplikasi web yang interaktif dan responsif.
+            Data dari sensor diproses secara otomatis di server pusat, dianalisis, lalu ditampilkan dalam dashboard yang mudah dipahami oleh masyarakat dan petugas.
           </p>
         </div>
         
@@ -48,36 +46,18 @@ const About = () => {
               <div className="member-avatar">
                 <i className="fas fa-user-circle"></i>
               </div>
-              <h3>Dr. Ahmad Fauzi</h3>
-              <p className="member-role">Ketua Proyek</p>
-              <p>Pakar meteorologi dengan pengalaman 15 tahun di BMKG Indonesia</p>
+              <h3>Ryan Akmal Pasya</h3>
+              <p className="member-role">APP Developer</p>
+              <p>Mahasiswa Universitas Syiah Kuala Spesialis Data</p>
             </div>
             
             <div className="team-member">
               <div className="member-avatar">
                 <i className="fas fa-user-circle"></i>
               </div>
-              <h3>Ir. Siti Rahmah</h3>
-              <p className="member-role">Ahli Sistem Informasi Geografis</p>
-              <p>Spesialis pemetaan digital dan visualisasi data spasial</p>
-            </div>
-            
-            <div className="team-member">
-              <div className="member-avatar">
-                <i className="fas fa-user-circle"></i>
-              </div>
-              <h3>Budi Santoso, M.Kom</h3>
-              <p className="member-role">Lead Developer</p>
-              <p>Pengembang software dengan keahlian di bidang IoT dan sistem terdistribusi</p>
-            </div>
-            
-            <div className="team-member">
-              <div className="member-avatar">
-                <i className="fas fa-user-circle"></i>
-              </div>
-              <h3>Dewi Putri, S.T.</h3>
-              <p className="member-role">UI/UX Designer</p>
-              <p>Desainer antarmuka dengan fokus pada pengalaman pengguna yang intuitif</p>
+              <h3>T. Saidil Anam</h3>
+              <p className="member-role">IOT Specialist</p>
+              <p>Mahasiswa Universitas Syiah Kuala Spesialis IOT</p>
             </div>
           </div>
         </div>
@@ -85,14 +65,12 @@ const About = () => {
         <div className="about-section">
           <h2>Kerjasama & Dukungan</h2>
           <p>
-            Proyek SIGAB dikembangkan dengan dukungan dan kerjasama dari:
+            Proyek ini didukung oleh berbagai lembaga dan mitra yang peduli terhadap pengurangan risiko bencana, antara lain:
           </p>
           <ul className="partners-list">
-            <li>Badan Meteorologi, Klimatologi, dan Geofisika (BMKG) Indonesia</li>
-            <li>Pemerintah Provinsi Aceh</li>
-            <li>Universitas Syiah Kuala</li>
-            <li>Badan Penanggulangan Bencana Daerah (BPBD) Aceh</li>
-            <li>Komunitas IoT Indonesia</li>
+            <li></li>
+            <li>1. BMKG</li>
+            <li>2. Universitas Syiah Kuala</li>
           </ul>
         </div>
         
@@ -101,7 +79,7 @@ const About = () => {
           <div className="contact-info">
             <div className="contact-item">
               <i className="fas fa-envelope"></i>
-              <p>info@sigab-aceh.id</p>
+              <p>kontak@mitigasibencana-aceh.id</p>
             </div>
             <div className="contact-item">
               <i className="fas fa-phone"></i>
@@ -109,7 +87,7 @@ const About = () => {
             </div>
             <div className="contact-item">
               <i className="fas fa-map-marker-alt"></i>
-              <p>Jl. Teuku Nyak Arief No. 441, Banda Aceh, Indonesia</p>
+              <p>Jl. Teuku Nyak Arief No. 441, Aceh Besar, Indonesia</p>
             </div>
           </div>
           <div className="social-media">
@@ -122,8 +100,8 @@ const About = () => {
       </div>
       
       <div className="about-footer">
-        <p>© 2023 SIGAB - Sistem Informasi Geografis Aceh Berbasis IoT</p>
-        <p>Semua hak dilindungi undang-undang.</p>
+        <p>© 2023 Sistem Mitigasi Bencana Aceh</p>
+        <p></p>
       </div>
     </div>
   );
