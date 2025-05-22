@@ -30,13 +30,6 @@
   color: #333;
 }
 
-.sensor-marker {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  transition: transform 0.2s;
-}
 
 .sensor-marker:hover {
   transform: scale(1.1);
@@ -70,3 +63,24 @@
   font-size: 0.8rem;
   color: #999;
 }
+
+.sensor-marker {
+  color: white;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  font-size: 16px;
+  user-select: none;
+}
+.sensor-marker.hujan {
+  background-color: #2ecc71; /* hijau */
+}
+.sensor-marker.banjir {
+  background-color: #e74c3c; /* merah */
+}
+
