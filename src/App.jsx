@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import MapComponent from './components/Map';
 import SensorData from './components/SensorData';
+import About from './components/About';
 import './App.css';
 
 // Import Font Awesome untuk ikon di navbar
