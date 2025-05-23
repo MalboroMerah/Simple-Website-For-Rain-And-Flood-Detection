@@ -67,14 +67,14 @@
 .sensor-marker {
   color: white;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: bold;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  font-size: 16px;
+  font-size: 14px;
   user-select: none;
 }
 .sensor-marker.hujan {
@@ -84,3 +84,7 @@
   background-color: #e74c3c; /* merah */
 }
 
+.sensor-marker.normal {
+  background-color: #3f51b5;
+  
+}
