@@ -25,8 +25,8 @@ const createSensorIcon = (Condition, Waterlevel) => {
     className += ' hujan';
     label = 'Hujan';
   } else {
-    className += ' normal';
-    label = 'Normal';
+    className += ' Aman';
+    label = 'Aman';
   }
 
   return L.divIcon({
@@ -58,9 +58,9 @@ const MapComponent = () => {
 
     client.on('connect', () => {
       console.log('Terhubung ke broker HiveMQ untuk peta');
-      client.subscribe('usk/iot/mqtt/contoh', (err) => {
+      client.subscribe('sensor/banjir', (err) => {
         if (err) console.error('Gagal subscribe:', err);
-        else console.log('Berhasil subscribe ke topik usk/iot/mqtt/contoh');
+        else console.log('Berhasil subscribe ke topik sensor/banjir');
       });
     });
 
@@ -69,16 +69,16 @@ const MapComponent = () => {
         const data = JSON.parse(message.toString());
         console.log('Data diterima:', data);
 
-        if (data.Condition !== undefined && data.Waterlevel !== undefined) {
+        if (data.final_status !== undefined && data.water_level_status !== undefined) {
           setSensorData({
-            Condition: data.Condition,
-            Waterlevel: data.Waterlevel
+            Condition: data.final_status,
+            Waterlevel: data.water_level_status
           });
 
           setLocations(prevLocations =>
             prevLocations.map((loc, index) =>
               index === 0
-                ? { ...loc, Condition: data.Condition, Waterlevel: data.Waterlevel }
+                ? { ...loc, Condition: data.final_status, Waterlevel: data.water_level_status }
                 : loc
             )
           );
