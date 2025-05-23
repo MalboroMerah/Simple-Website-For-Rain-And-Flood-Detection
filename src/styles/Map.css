@@ -12,6 +12,10 @@
   flex: 1;
 }
 
+.sensor-title {
+  color: #007bff;
+}
+
 .map-container {
   background-color: #fff;
   border-radius: 8px;
@@ -31,12 +35,14 @@
 }
 
 
+
 .sensor-marker:hover {
   transform: scale(1.1);
   z-index: 1000;
 }
 
 .sensor-info {
+  border: 1px solid #dee2e6;
   margin-top: 15px;
   padding: 15px;
   background-color: #f8f9fa;
@@ -69,28 +75,27 @@
   color: white;
   background-color: #2c3e50;
   border-radius: 50%;
-  min-width: 100px;
-  min-height: 100px;
-  padding: 20px;
+  width: 80px;
+  height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 14px;
   text-align: center;
   user-select: none;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  aspect-ratio: 1 / 1; /* menjaga agar tetap bulat walau tinggi berubah */
   box-sizing: border-box;
 }
+
 .sensor-marker.hujan {
   background-color: #2ecc71; /* hijau */
 }
+
 .sensor-marker.banjir {
   background-color: #e74c3c; /* merah */
 }
 
 .sensor-marker.Aman {
   background-color: #3f51b5;
-  
 }
