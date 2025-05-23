@@ -64,18 +64,24 @@
   color: #999;
 }
 
+
 .sensor-marker {
   color: white;
+  background-color: #2c3e50;
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
+  min-width: 100px;
+  min-height: 100px;
+  padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  font-size: 14px;
+  font-size: 16px;
+  text-align: center;
   user-select: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  aspect-ratio: 1 / 1; /* menjaga agar tetap bulat walau tinggi berubah */
+  box-sizing: border-box;
 }
 .sensor-marker.hujan {
   background-color: #2ecc71; /* hijau */

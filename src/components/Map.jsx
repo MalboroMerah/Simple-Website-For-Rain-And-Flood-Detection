@@ -13,25 +13,21 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
 });
 
-// Fungsi untuk membuat ikon berdasarkan kondisi
-const createSensorIcon = (Condition, Waterlevel) => {
+// Fungsi untuk membuat ikon berdasarkan label dan Waterlevel
+const createSensorIcon = (label, Waterlevel) => {
   let className = 'sensor-marker';
-  let label = '';
 
-  if (Waterlevel > 1) {
+  if (label === "Berpotensi Banjir") {
     className += ' banjir';
-    label = 'Banjir';
-  } else if (Condition === 'Hujan') {
+  } else if (label === 'Hujan') {
     className += ' hujan';
-    label = 'Hujan';
   } else {
     className += ' Aman';
-    label = 'Aman';
   }
 
   return L.divIcon({
     className,
-    html: `<div>${label}</div>`,
+    html: `<div>${label}</div>`, // label langsung dari parameter
     iconSize: [50, 50],
     iconAnchor: [25, 25],
     popupAnchor: [0, -25]
@@ -113,6 +109,7 @@ const MapComponent = () => {
         />
 
         {locations.map((location, index) => {
+          // Gunakan Condition sebagai label di ikon, dan Waterlevel untuk kelas
           const sensorIcon = createSensorIcon(location.Condition, location.Waterlevel);
           return (
             <Marker
