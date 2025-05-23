@@ -43,15 +43,15 @@ const MapComponent = () => {
   
   // Data lokasi sensor dengan suhu dan kelembaban (akan diperbarui dari MQTT)
   const [locations, setLocations] = useState([
-    { name: "Sensor 1 - Darussalam", position: [5.5731363,95.3664551], Condition: "Hujan", Waterlevel: 65, selected: true },
-    { name: "Sensor 2 - Ulee Kareng", position: [5.5474374,95.3378723], Condition: "Hujan", Waterlevel: 70 },
+    { name: "Sensor 1 - Darussalam", position: [5.5731363,95.3664551], Condition: "Normal", Waterlevel: 0, selected: true },
+    { name: "Sensor 2 - Ulee Kareng", position: [5.5474374,95.3378723], Condition: "Normal", Waterlevel: 0 },
     
   ]);
   
   // Data sensor dari ESP32/Wokwi
   const [sensorData, setSensorData] = useState({
-    Condition: "Hujan",
-    Waterlevel: 65
+    Condition: "Normal",
+    Waterlevel: 0
   });
   
   // Lokasi yang dipilih untuk ditampilkan detailnya
@@ -86,7 +86,7 @@ const MapComponent = () => {
           // Update data lokasi sensor pertama dengan data dari ESP32
           setLocations(prevLocations => {
             return prevLocations.map((loc, index) => {
-              if (index === 0) { // Update sensor pertama (Banda Aceh)
+              if (index === 0) { // Update sensor pertama (Darusaalam Banda Aceh)
                 return { ...loc, Condition: data.Condition, Waterlevel: data.Waterlevel };
               }
               return loc;
@@ -130,7 +130,7 @@ const MapComponent = () => {
         
       {locations.map((location, index) => {
   const sensorIcon = createSensorIcon(location.Condition, location.Waterlevel);
-  return (
+  return sensorIcon ? (
     <Marker 
       key={index} 
       position={location.position}
@@ -143,7 +143,7 @@ const MapComponent = () => {
         Ketinggian Air: {location.Waterlevel} Cm
       </Popup>
     </Marker>
-  );
+  ) : null;
 })}
       </MapContainer>
       <div className="sensor-info">
