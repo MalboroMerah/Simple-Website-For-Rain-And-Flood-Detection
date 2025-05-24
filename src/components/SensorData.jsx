@@ -167,37 +167,44 @@ const SensorData = () => {
     };
   }, [sensorData.rainValueHistory, sensorData.waterLevelValueHistory, sensorData.timeHistory]);
 
-  return (
-    <div style={{ padding: '20px' }}>
-      <h2>Monitoring Sensor Banjir (ESP32)</h2>
+return (
+  <div style={{ padding: '20px' }}>
+    <h2>Monitoring Sensor Banjir (ESP32)</h2>
 
-      <p>Status Koneksi: <strong>{connectionStatus}</strong></p>
-      <p>Update Terakhir: {sensorData.lastUpdate.toLocaleString('id-ID')}</p>
-      <p>Topik MQTT: sensor/banjir</p>
+    <p>Status Koneksi: <strong>{connectionStatus}</strong></p>
+    <p>Update Terakhir: {sensorData.lastUpdate.toLocaleString('id-ID')}</p>
+    <p>Topik MQTT: sensor/banjir</p>
 
-      <div style={{ marginTop: '20px' }}>
-        <h3>Data Saat Ini</h3>
-        <ul>
-          <li>Nilai Sensor Hujan: {sensorData.rain_value}</li>
-          <li>Kondisi Hujan: {sensorData.rain_status}</li>
-          <li>Nilai Sensor Level Air: {sensorData.water_level_value}</li>
-          <li>Kondisi Level Air: {sensorData.water_level_status}</li>
-          <li><strong>Kesimpulan Akhir: {sensorData.final_status}</strong></li>
-        </ul>
+    <div style={{ marginTop: '20px' }}>
+      <h3>Data Saat Ini</h3>
+      <ul>
+        <li>Nilai Sensor Hujan: {sensorData.rain_value}</li>
+        <li>Kondisi Hujan: {sensorData.rain_status}</li>
+        <li>Nilai Sensor Level Air: {sensorData.water_level_value}</li>
+        <li>Kondisi Level Air: {sensorData.water_level_status}</li>
+        <li><strong>Kesimpulan Akhir: {sensorData.final_status}</strong></li>
+      </ul>
+    </div>
+
+    <div
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: '20px',
+        marginTop: '40px'
+      }}
+    >
+      <div style={{ flex: '1 1 300px', minWidth: '300px', height: '300px' }}>
+        <h4>Grafik Nilai Sensor Hujan</h4>
+        <canvas ref={rainChartRef} style={{ width: '100%', height: '100%' }}></canvas>
       </div>
-
-      <div style={{ display: 'flex', gap: '40px', marginTop: '40px', height: '300px' }}>
-        <div style={{ flex: 1 }}>
-          <h4>Grafik Nilai Sensor Hujan</h4>
-          <canvas ref={rainChartRef}></canvas>
-        </div>
-        <div style={{ flex: 1 }}>
-          <h4>Grafik Nilai Sensor Level Air</h4>
-          <canvas ref={waterLevelChartRef}></canvas>
-        </div>
+      <div style={{ flex: '1 1 300px', minWidth: '300px', height: '300px' }}>
+        <h4>Grafik Nilai Sensor Level Air</h4>
+        <canvas ref={waterLevelChartRef} style={{ width: '100%', height: '100%' }}></canvas>
       </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default SensorData;
