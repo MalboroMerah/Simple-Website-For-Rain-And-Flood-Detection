@@ -12,10 +12,6 @@
   flex: 1;
 }
 
-.sensor-title {
-  color: #007bff;
-}
-
 .map-container {
   background-color: #fff;
   border-radius: 8px;
@@ -25,77 +21,296 @@
   height: calc(100vh - 120px);
   display: flex;
   flex-direction: column;
+  max-width: 1100px;
+  margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
 }
 
-.map-container h2 {
+/* Header styling */
+.map-header {
+  margin-bottom: 25px;
+  border-bottom: 2px solid #5161ce;
+  padding-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.map-header h2 {
   margin-top: 0;
-  margin-bottom: 15px;
+  margin-bottom: 0;
   font-size: 1.8rem;
   color: #333;
 }
 
+/* Connection info styling - simplified with dot */
+.connection-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
 
+.mqtt-status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.mqtt-connected {
+  background-color: #28a745;
+  box-shadow: 0 0 5px #28a745;
+}
+
+.mqtt-connecting {
+  background-color: #ffc107;
+  box-shadow: 0 0 5px #ffc107;
+}
+
+.mqtt-disconnected, .mqtt-error {
+  background-color: #dc3545;
+  box-shadow: 0 0 5px #dc3545;
+}
+
+.last-update {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Map wrapper */
+.map-wrapper {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 25px;
+  flex: 1;
+}
+
+/* Popup styling - simplified */
+.map-popup {
+  padding: 10px;
+  text-align: center;
+}
+
+.popup-status {
+  margin-top: 10px;
+  font-size: 1.1rem;
+}
+
+.status-normal {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.status-danger {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+/* Attribution */
+.attribution {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 20px;
+}
+
+/* Map fullscreen */
+/* Styling untuk peta fullscreen */
+.map-fullscreen-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+/* Status bar di atas peta */
+.map-status-bar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 8px 15px;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+}
+
+/* Connection info styling */
+.connection-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.connection-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.mqtt-status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.mqtt-connected {
+  background-color: #28a745;
+  box-shadow: 0 0 5px #28a745;
+}
+
+.mqtt-connecting {
+  background-color: #ffc107;
+  box-shadow: 0 0 5px #ffc107;
+}
+
+.mqtt-disconnected, .mqtt-error {
+  background-color: #dc3545;
+  box-shadow: 0 0 5px #dc3545;
+}
+
+.last-update {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* Marker styling - improved for visibility */
+.sensor-marker {
+  border-radius: 50%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid white;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+  width: 40px !important;
+  height: 40px !important;
+  transition: transform 0.2s ease;
+}
 
 .sensor-marker:hover {
   transform: scale(1.1);
   z-index: 1000;
 }
 
-.sensor-info {
-  border: 1px solid #dee2e6;
-  margin-top: 15px;
-  padding: 15px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.sensor-marker.banjir {
+  background-color: #dc3545;
+  color: white;
 }
 
-.sensor-info h3 {
-  margin-top: 0;
+.sensor-marker.aman {
+  background-color: #28a745;
+  color: white;
+}
+
+/* Custom popup styling */
+.custom-popup .leaflet-popup-content-wrapper {
+  border-radius: 10px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.3);
+}
+
+.custom-popup .leaflet-popup-content {
+  margin: 0;
+  width: 200px !important;
+}
+
+.map-popup {
+  padding: 15px;
+  text-align: center;
+}
+
+.map-popup strong {
+  font-size: 1.1rem;
+  display: block;
   margin-bottom: 10px;
-  font-size: 1.2rem;
   color: #333;
 }
 
-.sensor-info p {
-  margin: 5px 0;
-  font-size: 1rem;
-  color: #555;
+.popup-status {
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 5px;
 }
 
-.attribution {
-  margin-top: 5px;
-  text-align: right;
-  font-size: 0.8rem;
-  color: #999;
-}
-
-
-.sensor-marker {
-  color: white;
-  background-color: #2c3e50;
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.status-normal {
+  background-color: rgba(40, 167, 69, 0.1);
+  color: #28a745;
   font-weight: bold;
-  font-size: 14px;
-  text-align: center;
-  user-select: none;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  box-sizing: border-box;
 }
 
-.sensor-marker.hujan {
-  background-color: #2ecc71; /* hijau */
+.status-danger {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+  font-weight: bold;
 }
 
-.sensor-marker.banjir {
-  background-color: #e74c3c; /* merah */
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .map-status-bar {
+    background-color: rgba(33, 33, 33, 0.8);
+  }
+  
+  .connection-label {
+    color: #e1e1e1;
+  }
+  
+  .last-update {
+    color: #adb5bd;
+  }
+  
+  .map-popup strong {
+    color: #e1e1e1;
+  }
+  
+  .custom-popup .leaflet-popup-content-wrapper {
+    background-color: #333;
+  }
+  
+  .custom-popup .leaflet-popup-tip {
+    background-color: #333;
+  }
 }
 
-.sensor-marker.Aman {
-  background-color: #3f51b5;
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .map-status-bar {
+    left: 10px;
+    right: 10px;
+    justify-content: center;
+  }
+}
+@media (max-width: 768px) {
+  .map-container {
+    padding: 15px 10px;
+    height: calc(100vh - 100px);
+  }
+  
+  .map-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .map-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .connection-info {
+    margin-top: 10px;
+  }
 }

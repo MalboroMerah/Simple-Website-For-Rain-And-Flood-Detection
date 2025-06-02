@@ -3,7 +3,7 @@
 
 /* ---------horizontal-navbar-menu-----------*/
 #navbar-animmenu {
-	background: #2980b9;
+	background: #5161ce; /* Diubah dari #2980b9 menjadi #5161ce */
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -144,16 +144,16 @@
 
 /* Dark theme */
 .dark-theme {
-  background: #1a1a2e;
+  background: #3a4495; /* Diubah untuk tema gelap yang sesuai dengan warna ungu */
 }
 
 .dark-theme .hori-selector {
-  background-color: #0f3460;
+  background-color: #6b7dff; /* Diubah untuk tema gelap */
 }
 
 .dark-theme .hori-selector .right,
 .dark-theme .hori-selector .left {
-  background-color: #0f3460;
+  background-color: #6b7dff; /* Diubah untuk tema gelap */
 }
 
 .dark-theme .hori-selector .right:before,

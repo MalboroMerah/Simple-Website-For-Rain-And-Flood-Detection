@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import mqtt from 'mqtt';
 import { Chart, registerables } from 'chart.js';
+import '../styles/SensorData.css';
 
 Chart.register(...registerables);
 
@@ -11,7 +12,7 @@ const SensorData = () => {
     rain_status: '-',
     water_level_value: 0,
     water_level_status: '-',
-    final_status: '-',
+    final_status: 'Aman',
     lastUpdate: new Date(),
     rainValueHistory: [],
     waterLevelValueHistory: [],
@@ -19,6 +20,7 @@ const SensorData = () => {
   });
 
   const [connectionStatus, setConnectionStatus] = useState('Menghubungkan...');
+  const [floodDetectionTime, setFloodDetectionTime] = useState(null);
 
   useEffect(() => {
     const client = mqtt.connect('wss://broker.hivemq.com:8884/mqtt');
@@ -44,6 +46,15 @@ const SensorData = () => {
           minute: '2-digit',
           second: '2-digit'
         });
+
+        // Cek apakah level air tinggi untuk deteksi banjir
+        if (data.water_level_status === 'Tinggi') {
+          if (!floodDetectionTime) {
+            setFloodDetectionTime(new Date());
+          }
+        } else {
+          setFloodDetectionTime(null);
+        }
 
         setSensorData(prev => {
           const newRainHistory = [...prev.rainValueHistory, data.rain_value].slice(-20);
@@ -83,7 +94,7 @@ const SensorData = () => {
     return () => {
       client.end();
     };
-  }, []);
+  }, [floodDetectionTime]);
 
   // Chart refs & instance refs
   const rainChartRef = useRef(null);
@@ -104,23 +115,64 @@ const SensorData = () => {
           datasets: [{
             label: 'Nilai Sensor Hujan',
             data: sensorData.rainValueHistory,
-            borderColor: 'rgba(54, 162, 235, 1)',
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: '#5161ce',
+            backgroundColor: 'rgba(81, 97, 206, 0.2)',
             fill: true,
             tension: 0.3,
-            pointRadius: 2,
+            pointRadius: 3,
+            pointBackgroundColor: '#5161ce',
           }]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: true,
+              position: 'top',
+              labels: {
+                boxWidth: 12,
+                usePointStyle: true,
+                pointStyle: 'circle'
+              }
+            },
+            tooltip: {
+              mode: 'index',
+              intersect: false,
+              backgroundColor: 'rgba(0, 0, 0, 0.7)',
+              titleFont: {
+                size: 13
+              },
+              bodyFont: {
+                size: 12
+              }
+            }
+          },
           scales: {
             y: {
               beginAtZero: true,
-              title: { display: true, text: 'Nilai Hujan' }
+              title: { display: true, text: 'Nilai Hujan' },
+              grid: {
+                color: 'rgba(0, 0, 0, 0.05)'
+              },
+              ticks: {
+                font: {
+                  size: 11
+                }
+              }
             },
             x: {
-              title: { display: true, text: 'Waktu' }
+              title: { display: true, text: 'Waktu' },
+              grid: {
+                display: false
+              },
+              ticks: {
+                maxRotation: 45,
+                minRotation: 45,
+                font: {
+                  size: 10
+                }
+              }
             }
           }
         }
@@ -138,23 +190,64 @@ const SensorData = () => {
           datasets: [{
             label: 'Nilai Sensor Level Air',
             data: sensorData.waterLevelValueHistory,
-            borderColor: 'rgba(255, 99, 132, 1)',
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: '#fd7e14',
+            backgroundColor: 'rgba(253, 126, 20, 0.2)',
             fill: true,
             tension: 0.3,
-            pointRadius: 2,
+            pointRadius: 3,
+            pointBackgroundColor: '#fd7e14',
           }]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: true,
+              position: 'top',
+              labels: {
+                boxWidth: 12,
+                usePointStyle: true,
+                pointStyle: 'circle'
+              }
+            },
+            tooltip: {
+              mode: 'index',
+              intersect: false,
+              backgroundColor: 'rgba(0, 0, 0, 0.7)',
+              titleFont: {
+                size: 13
+              },
+              bodyFont: {
+                size: 12
+              }
+            }
+          },
           scales: {
             y: {
               beginAtZero: true,
-              title: { display: true, text: 'Nilai Level Air' }
+              title: { display: true, text: 'Nilai Level Air' },
+              grid: {
+                color: 'rgba(0, 0, 0, 0.05)'
+              },
+              ticks: {
+                font: {
+                  size: 11
+                }
+              }
             },
             x: {
-              title: { display: true, text: 'Waktu' }
+              title: { display: true, text: 'Waktu' },
+              grid: {
+                display: false
+              },
+              ticks: {
+                maxRotation: 45,
+                minRotation: 45,
+                font: {
+                  size: 10
+                }
+              }
             }
           }
         }
@@ -167,44 +260,128 @@ const SensorData = () => {
     };
   }, [sensorData.rainValueHistory, sensorData.waterLevelValueHistory, sensorData.timeHistory]);
 
-return (
-  <div style={{ padding: '20px' }}>
-    <h2>Monitoring Sensor Banjir (ESP32)</h2>
+  // Helper function untuk menentukan class status
+  const getStatusClass = (status) => {
+    if (status === 'Tidak Hujan' || status === 'Rendah' || status === 'Aman' || status === '-') {
+      return 'status-normal';
+    } else if (status === 'Gerimis' || status === 'Sedang' || status === 'Waspada') {
+      return 'status-warning';
+    } else {
+      return 'status-danger';
+    }
+  };
 
-    <p>Status Koneksi: <strong>{connectionStatus}</strong></p>
-    <p>Update Terakhir: {sensorData.lastUpdate.toLocaleString('id-ID')}</p>
-    <p>Topik MQTT: sensor/banjir</p>
+  // Helper function untuk menentukan class status koneksi
+  const getConnectionStatusClass = () => {
+    if (connectionStatus === 'Terhubung' || connectionStatus === 'Data diterima') {
+      return 'status-connected';
+    } else if (connectionStatus === 'Menghubungkan...') {
+      return 'status-connecting';
+    } else {
+      return 'status-error';
+    }
+  };
 
-    <div style={{ marginTop: '20px' }}>
-      <h3>Data Saat Ini</h3>
-      <ul>
-        <li>Nilai Sensor Hujan: {sensorData.rain_value}</li>
-        <li>Kondisi Hujan: {sensorData.rain_status}</li>
-        <li>Nilai Sensor Level Air: {sensorData.water_level_value}</li>
-        <li>Kondisi Level Air: {sensorData.water_level_status}</li>
-        <li><strong>Kesimpulan Akhir: {sensorData.final_status}</strong></li>
-      </ul>
-    </div>
+  // Hitung waktu deteksi banjir
+  const getFloodDetectionInfo = () => {
+    if (!floodDetectionTime) {
+      return {
+        status: 'safe',
+        message: 'Tidak ada potensi banjir terdeteksi'
+      };
+    }
 
-    <div
-      style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        gap: '20px',
-        marginTop: '40px'
-      }}
-    >
-      <div style={{ flex: '1 1 300px', minWidth: '300px', height: '300px' }}>
-        <h4>Grafik Nilai Sensor Hujan</h4>
-        <canvas ref={rainChartRef} style={{ width: '100%', height: '100%' }}></canvas>
+    const now = new Date();
+    const elapsedMinutes = Math.floor((now - floodDetectionTime) / (1000 * 60));
+    const remainingMinutes = 15 - elapsedMinutes;
+
+    if (sensorData.final_status === 'Berpotensi Banjir') {
+      return {
+        status: 'danger',
+        message: 'PERINGATAN: Berpotensi Banjir!'
+      };
+    } else if (elapsedMinutes >= 10) {
+      return {
+        status: 'warning',
+        message: `Peringatan: Level air tinggi selama ${elapsedMinutes} menit. Potensi banjir dalam ${remainingMinutes} menit lagi.`
+      };
+    } else {
+      return {
+        status: 'warning',
+        message: `Level air tinggi terdeteksi selama ${elapsedMinutes} menit. Monitoring...`
+      };
+    }
+  };
+
+  const floodInfo = getFloodDetectionInfo();
+
+  return (
+    <div className="sensor-data-container">
+      <div className="sensor-header">
+        <h2>Monitoring Sensor Banjir (ESP32)</h2>
+        <div className="connection-info">
+          <div className={`mqtt-status-dot mqtt-${connectionStatus === 'Terhubung' || connectionStatus === 'Data diterima' ? 'connected' : connectionStatus === 'Menghubungkan...' ? 'connecting' : 'error'}`}></div>
+          {sensorData.lastUpdate && (
+            <div className="last-update">
+              Update: {sensorData.lastUpdate.toLocaleTimeString('id-ID')}
+            </div>
+          )}
+        </div>
       </div>
-      <div style={{ flex: '1 1 300px', minWidth: '300px', height: '300px' }}>
-        <h4>Grafik Nilai Sensor Level Air</h4>
-        <canvas ref={waterLevelChartRef} style={{ width: '100%', height: '100%' }}></canvas>
+
+      {/* Flood Detection Section */}
+      <div className="flood-detection">
+        <div className="flood-detection-title">Sistem Deteksi Banjir</div>
+        <p>Sistem akan mendeteksi potensi banjir jika level air tinggi terdeteksi selama 15 menit atau lebih.</p>
+        <div className="flood-status">
+          <div className={`flood-indicator flood-${floodInfo.status}`}></div>
+          <div className="flood-message">{floodInfo.message}</div>
+        </div>
+      </div>
+
+      <h3>Data Statistik Sensor</h3>
+      <div className="stats-container">
+        <div className="stat-card">
+          <div className="stat-title">Nilai Sensor Hujan</div>
+          <div className="stat-value">{sensorData.rain_value}</div>
+          <div className={`stat-status ${getStatusClass(sensorData.rain_status)}`}>
+            {sensorData.rain_status}
+          </div>
+        </div>
+        
+        <div className="stat-card">
+          <div className="stat-title">Nilai Sensor Level Air</div>
+          <div className="stat-value">{sensorData.water_level_value}</div>
+          <div className={`stat-status ${getStatusClass(sensorData.water_level_status)}`}>
+            {sensorData.water_level_status}
+          </div>
+        </div>
+        
+        <div className="stat-card">
+          <div className="stat-title">Status Banjir</div>
+          <div className="stat-value">{sensorData.final_status}</div>
+          <div className={`stat-status ${getStatusClass(sensorData.final_status)}`}>
+            {sensorData.final_status === 'Aman' ? 'Aman' : 'Waspada'}
+          </div>
+        </div>
+      </div>
+
+      <div className="charts-container">
+        <div className="chart-box">
+          <div className="chart-title">Grafik Nilai Sensor Hujan</div>
+          <div className="chart-wrapper">
+            <canvas ref={rainChartRef}></canvas>
+          </div>
+        </div>
+        <div className="chart-box">
+          <div className="chart-title">Grafik Nilai Sensor Level Air</div>
+          <div className="chart-wrapper">
+            <canvas ref={waterLevelChartRef}></canvas>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
 };
 
 export default SensorData;

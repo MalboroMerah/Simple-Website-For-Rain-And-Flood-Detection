@@ -49,7 +49,6 @@ const Navbar = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     console.log('Mencari lokasi:', searchQuery);
-    // Implementasi pencarian lokasi akan ditambahkan di sini
   };
 
   return (
@@ -60,7 +59,7 @@ const Navbar = () => {
       </div>
       
       <ul className="show-dropdown main-navbar">
-        <div className="hori-selector">
+        <div className="hori-selector" ref={horiSelectorRef}>
           <div className="left"></div>
           <div className="right"></div>
         </div>
@@ -68,7 +67,7 @@ const Navbar = () => {
           <Link to="/"><i className="fas fa-home"></i>Beranda</Link>
         </li>
         <li className={activeItem === 1 ? 'active' : ''} onClick={(e) => handleItemClick(1, e)}>
-          <Link to="/peta"><i className="fas fa-map-marked-alt"></i>Peta Cuaca</Link>
+          <Link to="/peta"><i className="fas fa-map-marked-alt"></i>Peta Banjir</Link>
         </li>
         <li className={activeItem === 2 ? 'active' : ''} onClick={(e) => handleItemClick(2, e)}>
           <Link to="/statistik"><i className="fas fa-chart-line"></i>Statistik</Link>
