@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, ZoomControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import mqtt from 'mqtt';
+import '../styles/Map.css';
+
 
 // Mengatasi masalah ikon Leaflet di React
 import L from 'leaflet';
@@ -55,17 +57,8 @@ const MapComponent = () => {
       name: "Sensor 3 - Syiah Kuala", 
       position: [5.5823, 95.3683], 
       status: "Aman"
-    },
-    { 
-      name: "Sensor 4 - Banda Aceh", 
-      position: [5.5482, 95.3235], 
-      status: "Aman"
-    },
-    { 
-      name: "Sensor 5 - Krueng Aceh", 
-      position: [5.5612, 95.3345], 
-      status: "Aman"
-    },
+    }
+    
   ]);
 
   const [connectionStatus, setConnectionStatus] = useState('disconnected');
