@@ -293,14 +293,14 @@ const SensorData = () => {
 
     const now = new Date();
     const elapsedMinutes = Math.floor((now - floodDetectionTime) / (1000 * 60));
-    const remainingMinutes = 15 - elapsedMinutes;
+    const remainingMinutes = 2 - elapsedMinutes;
 
     if (sensorData.final_status === 'Berpotensi Banjir') {
       return {
         status: 'danger',
         message: 'PERINGATAN: Berpotensi Banjir!'
       };
-    } else if (elapsedMinutes >= 10) {
+    } else if (elapsedMinutes >= 1) {
       return {
         status: 'warning',
         message: `Peringatan: Level air tinggi selama ${elapsedMinutes} menit. Potensi banjir dalam ${remainingMinutes} menit lagi.`
@@ -332,7 +332,7 @@ const SensorData = () => {
       {/* Flood Detection Section */}
       <div className="flood-detection">
         <div className="flood-detection-title">Sistem Deteksi Banjir</div>
-        <p>Sistem akan mendeteksi potensi banjir jika level air tinggi terdeteksi selama 15 menit atau lebih.</p>
+        <p>Sistem akan mendeteksi potensi banjir jika level air tinggi terdeteksi selama 2 menit atau lebih.</p>
         <div className="flood-status">
           <div className={`flood-indicator flood-${floodInfo.status}`}></div>
           <div className="flood-message">{floodInfo.message}</div>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, ZoomControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import '../styles/Map.css';
 import mqtt from 'mqtt';
 
 // Mengatasi masalah ikon Leaflet di React
